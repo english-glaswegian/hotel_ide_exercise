@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "hotel-work"
+version = "0.1.0"
+description = "Hotel booking API"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+uvicorn = "^0.30.1"
+fastapi = "^0.111.0"
+sqlalchemy = "^2.0.30"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.9"
+pytest = "^8.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

@@ -1,0 +1,10 @@
+.pdf
+.db
+.old
+.lock
+__pycache__/
+.pyc
+.stfolder/
+poetry.lock
+.pytest_cache/
+.stignore
