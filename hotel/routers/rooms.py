@@ -23,7 +23,7 @@ def api_read_all_rooms():
     return read_all_rooms(room_interface)
 
 
-@router.get("/room/{room_id}")
+@router.get("/rooms/{room_id}")
 def api_read_room(room_id: int):
     room_interface = DBInterface(DBRoom)
     return read_room(room_id, room_interface)
@@ -34,7 +34,7 @@ def api_read_room(room_id: int):
 # should receive a room id and a date and that returns whether the room with
 # the id is available at that date. Extend the various layers in the
 # application as needed to achieve this.
-@router.get("/room/{room_id}/{date}")
+@router.get("/rooms/{room_id}/{date}")
 def api_check_room_availability(room_id: int, date: date):
     booking_interface = DBInterface(DBBooking)
     return check_room_availability(room_id, date, booking_interface)
@@ -45,21 +45,21 @@ def api_check_room_availability(room_id: int, date: date):
 # given date range. The endpoint should receive a start date and end date and
 # then return a list of rooms that are available within the date range. Only
 # include rooms that are fully available within the date range.
-@router.get("/room/{start}/{end}")
+@router.get("/rooms/{start}/{end}")
 def api_check_rooms_available(start: date, end: date):
     booking_interface = DBInterface(DBBooking)
     room_interface = DBInterface(DBRoom)
     return check_rooms_available(start, end, room_interface, booking_interface)
 
 
-@router.post("/room/{room_id}/{amenity_id}")
+@router.post("/rooms/{room_id}/{amenity_id}")
 def api_create_room_amenity(room_id, amenity_id):
     room_interface = DBInterface(DBRoom)
     amenity_interface = DBInterface(DBAmenity)
     return create_room_amenity(room_id, amenity_id, room_interface, amenity_interface)
 
 
-@router.delete("/room/{room_id}/{amenity_id}")
+@router.delete("/rooms/{room_id}/{amenity_id}")
 def api_delete_room_amenity(room_id, amenity_id):
     room_interface = DBInterface(DBRoom)
     amenity_interface = DBInterface(DBAmenity)

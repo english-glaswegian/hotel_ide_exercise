@@ -21,25 +21,25 @@ def api_read_all_amenities():
     return read_all_amenities(amenity_interface)
 
 
-@router.get("/amenity/{amenity_id}")
+@router.get("/amenities/{amenity_id}")
 def api_read_amenity(amenity_id: int):
     amenity_interface = DBInterface(DBAmenity)
     return read_amenity(amenity_id, amenity_interface)
 
 
-@router.post("/amenity")
+@router.post("/amenities")
 def api_create_amenity(amenity: AmenityCreateData):
     amenity_interface = DBInterface(DBAmenity)
     return create_amenity(amenity, amenity_interface)
 
 
-@router.post("/amenity/{amenity_id}")
+@router.post("/amenities/{amenity_id}")
 def api_update_amenity(amenity_id: int, amenity: AmenityUpdateData):
     amenity_interface = DBInterface(DBAmenity)
     return update_amenity(amenity_id, amenity, amenity_interface)
 
 
-@router.delete("/amenity/{amenity_id}")
+@router.delete("/amenities/{amenity_id}")
 def api_delete_amenity(amenity_id: int):
     room_interface = DBInterface(DBRoom)
     amenity_interface = DBInterface(DBAmenity)
