@@ -45,7 +45,7 @@ def api_check_room_availability(room_id: int, date: date):
 # given date range. The endpoint should receive a start date and end date and
 # then return a list of rooms that are available within the date range. Only
 # include rooms that are fully available within the date range.
-@router.get("/rooms/{start}/{end}")
+@router.get("/rooms_available/{start}/{end}")
 def api_check_rooms_available(start: date, end: date):
     booking_interface = DBInterface(DBBooking)
     room_interface = DBInterface(DBRoom)
