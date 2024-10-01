@@ -6,7 +6,7 @@ import pytest
 
 from hotel.operations.bookings import (
     BookingCreateData,
-    InvalidDateError,
+    ZeroNightStayError,
     create_booking,
 )
 from hotel.operations.rooms import check_room_availability, check_rooms_available
@@ -70,7 +70,7 @@ def test_date_error():
     """
     GIVEN:  Booking is given same start and end date
     WHEN:   Data is sent
-    THEN:   An InvlaidDateError is raised
+    THEN:   An ZeroNightStayError is raised
     """
     booking_data = BookingCreateData(
         # room_id=1,
@@ -78,7 +78,7 @@ def test_date_error():
         from_date=date.fromisoformat("2021-12-24"),
         to_date=date.fromisoformat("2021-12-24"),
     )
-    with pytest.raises(InvalidDateError):
+    with pytest.raises(ZeroNightStayError):
         create_booking(booking_data, BookingInterface(), RoomInterface())
 
 

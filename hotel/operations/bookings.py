@@ -7,7 +7,17 @@ from hotel.operations.rooms import check_rooms_available
 
 
 class InvalidDateError(Exception):
+    """A base error for invalid booking dates."""
+
     pass
+
+
+class ZeroNightStayError(InvalidDateError):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args)
+        self.from_date = kwargs.get("from_date")
+        self.to_date = kwargs.get("to_date")
+        self.message = f"From date {self.from_date} to {self.to_date} would create a zero night stay."
 
 
 class BookingCreateData(BaseModel):
@@ -73,7 +83,9 @@ def get_new_booking_price(booking_dict: dict, room_price: int) -> int:
     days = (booking_dict["to_date"] - booking_dict["from_date"]).days
 
     if days <= 0:
-        raise InvalidDateError()
+        raise ZeroNightStayError(
+            from_date=booking_dict["from_date"], to_date=booking_dict["to_date"]
+        )
 
     return room_price * days
 

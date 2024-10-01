@@ -5,12 +5,18 @@ from hotel.operations.interface import DataInterface, DataObject
 from hotel.operations.rooms import read_all_rooms
 
 
-class RoomHasAmenityError(Exception):
-    name: str
-
-
-class DuplicateAmenityError(Exception):
+class AmenityError(Exception):
     pass
+
+
+class RoomHasAmenityError(AmenityError):
+    def __init__(self, amenity_name: str):
+        self.message = f"A room exists that has amenity {amenity_name}"
+
+
+class DuplicateAmenityError(AmenityError):
+    def __init__(self, amenity_name: str):
+        self.message = f"{amenity_name} already exists"
 
 
 class AmenityCreateData(BaseModel):
@@ -37,7 +43,7 @@ def create_amenity(
     try:
         result = amenity_interface.create(amenity_dict)
     except IntegrityError:
-        raise DuplicateAmenityError()
+        raise DuplicateAmenityError(amenity_dict["name"])
 
     return result
 
@@ -50,7 +56,7 @@ def update_amenity(
     try:
         result = amenity_interface.update(amenity_id, update_data)
     except IntegrityError:
-        raise DuplicateAmenityError
+        raise DuplicateAmenityError(update_data["name"])
 
     return result
 
@@ -64,6 +70,6 @@ def delete_amenity(
     for room in room_list:
         if "amenities" in room.keys():
             if amenity["name"] in room["amenities"]:
-                raise RoomHasAmenityError()
+                raise RoomHasAmenityError(amenity["name"])
 
     return amenity_interface.delete(amenity_id)
